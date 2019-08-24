@@ -1,0 +1,28 @@
+environment: staging
+
+logging:
+
+  level: INFO
+
+  #loggers:
+    #org.kurtymckurt: INFO
+    #javax.ws.rs: ALL
+    #org.skife.jdbi: ALL
+
+  appenders:
+    - type: console
+      logFormat: "%d{'yyyy-MM-dd HH:mm:ss,SSSZ'} %-5level [%-10.10thread] [%-20.20logger{16}] - %msg %throwable%n"
+
+database:
+  driverClass : org.h2.Driver
+  url: "jdbc:h2:file:~/sample.db;USER=sa;PASSWORD=123"
+  user: sa
+  password: 123
+  maxWaitForConnection: 1s
+  validationQuery: "/* MyApplication Health Check */ SELECT 1"
+  minSize: 8
+  maxSize: 32
+  checkConnectionWhileIdle: false
+  properties:
+    charSet: UTF-8
+    hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
