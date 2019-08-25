@@ -9,11 +9,11 @@ import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import org.kurtymckurt.dropwizard.server.starter.models.Person;
 
 public class ServerApplication extends Application<ServerConfiguration> {
 
-  private HibernateBundle<ServerConfiguration> hibernateBundle = new ServerHibernationBundle(Person.class);
+  private HibernateBundle<ServerConfiguration> hibernateBundle = new ServerHibernationBundle(
+          "org.kurtymckurt.dropwizard.server.starter");
 
   public static void main(String[] args) throws Exception {
     new ServerApplication().run(args);

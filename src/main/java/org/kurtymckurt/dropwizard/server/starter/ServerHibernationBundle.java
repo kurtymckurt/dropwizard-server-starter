@@ -4,16 +4,16 @@ package org.kurtymckurt.dropwizard.server.starter;
 import javax.inject.Singleton;
 
 import io.dropwizard.db.PooledDataSourceFactory;
-import io.dropwizard.hibernate.HibernateBundle;
+import io.dropwizard.hibernate.ScanningHibernateBundle;
 
 @Singleton
-public class ServerHibernationBundle extends HibernateBundle<ServerConfiguration> {
+public class ServerHibernationBundle extends ScanningHibernateBundle<ServerConfiguration> {
 
-    protected ServerHibernationBundle(Class<?> entity, Class<?>... entities) {
-      super(entity, entities);
-    }
+  public ServerHibernationBundle(String pckg) {
+    super(pckg);
+  }
 
-    @Override
+  @Override
     public PooledDataSourceFactory getDataSourceFactory(ServerConfiguration serverConfiguration) {
       return serverConfiguration.getDatabase();
     }
