@@ -14,10 +14,14 @@ public class PersonDAO extends AbstractDAO<Person> {
   }
 
   public Person findById(long id) {
-    return get(id);
+    return super.get(id);
   }
 
   public Person save(Person entity) throws HibernateException {
     return super.persist(entity);
+  }
+
+  public void delete(Person entity) {
+    super.currentSession().delete(entity);
   }
 }

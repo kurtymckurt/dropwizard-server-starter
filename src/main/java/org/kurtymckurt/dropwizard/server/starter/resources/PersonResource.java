@@ -3,6 +3,7 @@ package org.kurtymckurt.dropwizard.server.starter.resources;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -13,8 +14,8 @@ import javax.ws.rs.core.Response;
 
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.LongParam;
-import org.kurtymckurt.dropwizard.server.starter.dtos.PersonDTO;
 import org.kurtymckurt.dropwizard.server.starter.daos.PersonDAO;
+import org.kurtymckurt.dropwizard.server.starter.dtos.PersonDTO;
 import org.kurtymckurt.dropwizard.server.starter.models.Person;
 import org.modelmapper.ModelMapper;
 
@@ -41,6 +42,18 @@ public class PersonResource {
       return Response.status(404).build();
     }
     return Response.ok(modelMapper.map(person, PersonDTO.class)).build();
+  }
+
+  @Path("/{id}")
+  @DELETE
+  @UnitOfWork
+  public Response deletePerson(@PathParam("id") LongParam id) {
+    Person person = personDAO.findById(id.get());
+    if(person == null) {
+      return Response.status(Response.Status.BAD_REQUEST).build();
+    }
+    personDAO.delete(person);
+    return Response.ok().build();
   }
 
   @POST
